@@ -3,6 +3,10 @@ import { auth, db } from './firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import AuthForm from './components/AuthForm';
+import NewNote from './components/NewNote';
+
+import createIcon from './assets/img/square-plus.png';
+import signOutIcon from './assets/img/sign-out-alt.png';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -11,6 +15,12 @@ function App() {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
   const [notes, setNotes] = useState([]);
+
+  const [showNewNoteSection, setShowNewNoteSection] = useState(false);
+
+  useEffect(() => {
+    console.log('El estado showNewNoteSection es:', showNewNoteSection);
+  }, [showNewNoteSection]);
 
   const fetchNotes = async (uid) => {
     try {
@@ -68,6 +78,10 @@ function App() {
     }
   }
 
+  const handleShowNewNote = () => {
+    setShowNewNoteSection(!showNewNoteSection);
+  }
+
   const addNote = async () => {
     if (key && value && user) {
       try {
@@ -107,8 +121,28 @@ function App() {
     <div>
       <div className="d-flex flex-row justify-content-between">
         <h3>QuickNotes</h3>
-        <button onClick={handleLogout}>Log Out</button>
+
+        <div className='d-flex flex-row'>
+          <button onClick={handleShowNewNote} className='icon-btn'>
+            <img src={createIcon} alt="create" />
+          </button>
+          <button onClick={handleLogout} className='icon-btn'>
+            <img src={signOutIcon} alt="sign out" />
+          </button>
+        </div>
       </div>
+
+      {showNewNoteSection ? (
+        <div id="new-note-section">
+          <NewNote
+            noteKey={key}
+            setNoteKey={setKey}
+            noteValue={value}
+            setNoteValue={setValue}
+            handleAddNote={addNote}
+          />
+        </div>
+      ) : null}
 
       <div>
         <ul>

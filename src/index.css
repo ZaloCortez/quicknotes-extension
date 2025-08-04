@@ -7,6 +7,10 @@
   font-family: "Inter", sans-serif;
 }
 
+.mt {
+  margin-top: 10px;
+}
+
 body {
   margin: 0;
   width: 300px;
@@ -19,11 +23,12 @@ div {
   gap: 10px;
 }
 
-input {
+input, textarea {
   padding: 5px 10px;
   border: 1px solid #cfcfcf;
   border-radius: 4px;
   outline: none;
+  font-size: 13px;
 }
 
 button {
@@ -38,6 +43,21 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.icon-btn {
+  width: fit-content;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.icon-btn:hover {
+  background-color: transparent;
+}
+
+.icon-btn img {
+  object-fit: contain;
+  height: 16px;
 }
 
 ul {
@@ -72,5 +92,12 @@ li {
   justify-content: space-between;
 }
 
+.light-text { 
+  color: #7a7a7a; 
+}
+
+#new-note-section {
+  display: none;
+}
 
 
